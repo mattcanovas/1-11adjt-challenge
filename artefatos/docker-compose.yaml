@@ -1,0 +1,39 @@
+networks:
+    backend:
+        driver: bridge
+services:
+    postgres:
+        container_name: postgres-fiap
+        image: postgres:17.7-alpine3.23
+        restart: unless-stopped
+        env_file: ./.env
+        volumes:
+            - ~/.fiap/postgres/data:/var/lib/postgresql/data
+        ports:
+            - "5786:5432/tcp"
+        healthcheck:
+            test:
+                [
+                    "CMD-SHELL",
+                    "pg_isready -U ${POSTGRES_USER:-fiap} -d ${POSTGRES_DB:-fiap123}",
+                ]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+            start_period: 30s
+        networks:
+            backend:
+                aliases:
+                    - postgresserver
+    gfood-api:
+        container_name: gfood-api
+        build:
+            dockerfile: ../gfood-api/Dockerfile
+        env_file: ./.env
+        ports:
+            - "7070:7070"
+            - "8000:8000"
+        depends_on:
+            - postgres
+        networks:
+            - backend
