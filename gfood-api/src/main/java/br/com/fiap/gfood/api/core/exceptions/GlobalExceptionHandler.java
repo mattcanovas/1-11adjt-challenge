@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -32,6 +33,18 @@ public class GlobalExceptionHandler
 				Constants.YOUR_REQUEST_PARAMETERS_DIDNT_VALIDATE,
 				Constants.THE_PARAMETERS_THAT_WAS_SEND_IN_REQUESTS_BODY_IS_NOT_VALID_ACCORDING_BUSINESS_RULES,
 				errors), HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(exception = HttpRequestMethodNotSupportedException.class)
+	public ResponseEntity<Object> methodArgumentNotValidExceptionHandler(
+			HttpRequestMethodNotSupportedException exception, HttpServletRequest request)
+	{
+		Map<String, String> errors = new HashMap<>();
+		errors.put(exception.getMethod(), "Not allowed");
+		return new ResponseEntity<>(new ProblemDetail(Boolean.FALSE, request.getRequestURL().toString(),
+				Constants.METHOD_NOT_ALLOWED,
+				Constants.METHOD_THAT_WAS_REQUESTED_IS_NOT_ALLOWED_BY_BUSINESS_LOGIC, errors),
+				HttpStatus.METHOD_NOT_ALLOWED);
 	}
 
 	@ExceptionHandler(exception = EmailAlreadyUsedException.class)

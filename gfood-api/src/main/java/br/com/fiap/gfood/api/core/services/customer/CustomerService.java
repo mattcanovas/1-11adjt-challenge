@@ -18,4 +18,6 @@ public interface CustomerService
 	ApiResponse create(CreateCustomerRequest payload);
 
 	ApiResponse update(UUID id, UpdateCustomerRequest payload);
+
+	void deleteById(UUID id);
 }

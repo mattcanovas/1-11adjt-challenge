@@ -15,4 +15,6 @@ public final class Constants
 	public static final String THE_PARAMETERS_THAT_WAS_SEND_IN_REQUESTS_BODY_IS_NOT_VALID_ACCORDING_BUSINESS_RULES = "The parameters that was send in request's body is not valid according with business rules.";
 	public static final String THE_EMAIL_THAT_WAS_SENDED_TO_REGISTER_NEW_CUSTOMER_IS_ALREADY_USED_TRY_ANOTHER_ONE = "The email that was sended to register new customer is aleady used. Try another one.";
 	public static final String THE_CUSTOMER_REQUESTED_TO_UPDATE_WAS_NOT_FOUND_TRY_AGAIN = "The customer reuqested to updated was not found. Try again.";
+	public static final String METHOD_NOT_ALLOWED = "Method requested not allowes";
+	public static final String METHOD_THAT_WAS_REQUESTED_IS_NOT_ALLOWED_BY_BUSINESS_LOGIC = "Method that was requested is not allowed by business logic.";
 }

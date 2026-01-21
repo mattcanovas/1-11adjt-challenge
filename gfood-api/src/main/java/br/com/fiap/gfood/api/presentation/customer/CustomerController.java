@@ -46,4 +46,11 @@ public class CustomerController implements CustomerResource
 		return new ResponseEntity<>(service.update(id, payload), HttpStatus.OK);
 	}
 
+	@Override
+	public ResponseEntity<Object> delete(UUID id)
+	{
+		service.deleteById(id);
+		return new ResponseEntity<>(HttpStatus.ACCEPTED);
+	}
+
 }

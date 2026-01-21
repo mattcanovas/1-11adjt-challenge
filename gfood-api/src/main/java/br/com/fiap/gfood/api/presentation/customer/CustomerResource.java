@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ import br.com.fiap.gfood.api.core.domain.ApiPageResponse;
 import br.com.fiap.gfood.api.core.domain.ApiResponse;
 import br.com.fiap.gfood.api.presentation.models.CreateCustomerRequest;
 import br.com.fiap.gfood.api.presentation.models.UpdateCustomerRequest;
+import jakarta.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping(value = V1_CUSTOMER)
@@ -33,5 +35,8 @@ public interface CustomerResource
 	ResponseEntity<ApiResponse> create(@RequestBody @Validated CreateCustomerRequest payload);
 	
 	@PutMapping("/{id}")
-	ResponseEntity<ApiResponse> update(@PathVariable UUID id, @RequestBody @Validated UpdateCustomerRequest payload);
+	ResponseEntity<ApiResponse> update(@PathVariable @NotNull(message = "The id of customer must be informed") UUID id, @RequestBody @Validated UpdateCustomerRequest payload);
+	
+	@DeleteMapping("/{id}")
+	ResponseEntity<Object> delete(@PathVariable @NotNull(message = "The id of customer must be informed") UUID id);
 }

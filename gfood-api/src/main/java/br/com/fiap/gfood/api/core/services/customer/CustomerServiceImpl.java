@@ -6,6 +6,7 @@ import static java.util.Objects.isNull;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,7 +26,6 @@ import jakarta.persistence.EntityNotFoundException;
 @Component
 public class CustomerServiceImpl implements CustomerService
 {
-
 	private final CustomerRepository repository;
 	private final CustomerParser parser;
 
@@ -71,6 +71,14 @@ public class CustomerServiceImpl implements CustomerService
 		customer.setType(isNull(payload.type()) ? customer.getType() : payload.type());
 		customer = repository.save(customer);
 		return new ApiResponse(Boolean.TRUE, parser.toDomain(customer));
+	}
+
+	@Override
+	public void deleteById(UUID id)
+	{
+		CompletableFuture.runAsync(() -> {
+			repository.deleteById(id);
+		});
 	}
 
 }
