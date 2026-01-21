@@ -57,6 +57,9 @@ public class CustomerData
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private TypeCustomer type;
+	
+	@Column(nullable = false)
+	private String address;
 
 	@PrePersist
 	public void prePersist()

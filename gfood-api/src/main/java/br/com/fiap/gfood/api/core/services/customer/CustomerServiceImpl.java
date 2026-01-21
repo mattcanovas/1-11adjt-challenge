@@ -58,7 +58,7 @@ public class CustomerServiceImpl implements CustomerService
 			throw new EmailAlreadyUsedException(MESSAGE_ERROR_EMAIL_IS_ALREADY_USED);
 		}
 		CustomerData newCustomer = CustomerData.builder().fullName(payload.fullName()).email(payload.email())
-				.login(payload.login()).password(payload.password()).type(payload.type()).build();
+				.login(payload.login()).password(payload.password()).type(payload.type()).address(payload.address()).build();
 		Customer savedCustomer = parser.toDomain(repository.save(newCustomer));
 		return new ApiResponse(Boolean.TRUE, savedCustomer);
 	}

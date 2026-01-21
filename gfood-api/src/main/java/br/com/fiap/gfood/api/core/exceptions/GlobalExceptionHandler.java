@@ -82,10 +82,10 @@ public class GlobalExceptionHandler
 				Constants.THE_OLD_PASSWORD_INFORMED_BODY_REQUISITION_MISMATCHED_DETAILED, errors),
 				HttpStatus.PRECONDITION_FAILED);
 	}
-	
+
 	@ExceptionHandler(exception = PasswordConfirmationMismatchException.class)
-	public ResponseEntity<Object> passwordConfirmationMismatchException(PasswordConfirmationMismatchException exception,
-			HttpServletRequest request)
+	public ResponseEntity<Object> passwordConfirmationMismatchException(
+			PasswordConfirmationMismatchException exception, HttpServletRequest request)
 	{
 		Map<String, String> errors = new HashMap<>();
 		errors.put("confirmation_password", exception.getMessage());
@@ -94,9 +94,11 @@ public class GlobalExceptionHandler
 				Constants.THE_CONFIRMATION_PASSWORD_INFORMED_ON_REQUEST_BODY_MISMATCHED, errors),
 				HttpStatus.PRECONDITION_FAILED);
 	}
-	
+
 	@ExceptionHandler(exception = AuthenticationFailedException.class)
-	public ResponseEntity<Object> authenticationFailedExceptionHandler(AuthenticationFailedException exception, HttpServletRequest request) {
+	public ResponseEntity<Object> authenticationFailedExceptionHandler(AuthenticationFailedException exception,
+			HttpServletRequest request)
+	{
 		Map<String, String> errors = new HashMap<>();
 		errors.put("login", exception.getMessage());
 		errors.put("password", exception.getMessage());
