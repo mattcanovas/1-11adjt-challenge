@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import br.com.fiap.gfood.api.core.commons.Constants;
 import br.com.fiap.gfood.api.core.domain.ProblemDetail;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
@@ -27,10 +28,10 @@ public class GlobalExceptionHandler
 			String errorMessage = error.getDefaultMessage();
 			errors.put(fieldName, errorMessage);
 		});
-		return new ResponseEntity<>(
-				new ProblemDetail(Boolean.FALSE, request.getRequestURL().toString(),
-						Constants.YOUR_REQUEST_PARAMETERS_DIDNT_VALIDATE, errors),
-				HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(new ProblemDetail(Boolean.FALSE, request.getRequestURL().toString(),
+				Constants.YOUR_REQUEST_PARAMETERS_DIDNT_VALIDATE,
+				Constants.THE_PARAMETERS_THAT_WAS_SEND_IN_REQUESTS_BODY_IS_NOT_VALID_ACCORDING_BUSINESS_RULES,
+				errors), HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(exception = EmailAlreadyUsedException.class)
@@ -39,10 +40,22 @@ public class GlobalExceptionHandler
 	{
 		Map<String, String> errors = new HashMap<>();
 		errors.put("email", exception.getMessage());
-		return new ResponseEntity<>(
-				new ProblemDetail(Boolean.FALSE, request.getRequestURL().toString(),
-						Constants.THE_EMAIL_INFORMED_IS_ALREAD_USED_IN_ANOTHER_ACCOUNT, errors),
-				HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(new ProblemDetail(Boolean.FALSE, request.getRequestURL().toString(),
+				Constants.THE_EMAIL_INFORMED_IS_ALREAD_USED_IN_ANOTHER_ACCOUNT,
+				Constants.THE_EMAIL_THAT_WAS_SENDED_TO_REGISTER_NEW_CUSTOMER_IS_ALREADY_USED_TRY_ANOTHER_ONE,
+				errors), HttpStatus.PRECONDITION_FAILED);
+	}
+
+	@ExceptionHandler(exception = EntityNotFoundException.class)
+	public ResponseEntity<Object> entityNotFoundExceptionHandler(EntityNotFoundException exception,
+			HttpServletRequest request)
+	{
+		Map<String, String> errors = new HashMap<>();
+		errors.put("id", exception.getMessage());
+		return new ResponseEntity<>(new ProblemDetail(Boolean.FALSE, request.getRequestURL().toString(),
+				Constants.MESSAGE_ERROR_CUSTOMER_NOT_FOUND,
+				Constants.THE_CUSTOMER_REQUESTED_TO_UPDATE_WAS_NOT_FOUND_TRY_AGAIN, errors),
+				HttpStatus.PRECONDITION_FAILED);
 	}
 
 }

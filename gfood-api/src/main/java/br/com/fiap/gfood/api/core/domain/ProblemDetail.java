@@ -11,6 +11,8 @@ public record ProblemDetail(
 		String type,
 		@JsonProperty("title")
 		String title,
+		@JsonProperty("details")
+		String details,
 		@JsonProperty("errors")
 		Map<String,String> errors
 		)

@@ -4,12 +4,17 @@ import static br.com.fiap.gfood.api.core.commons.Constants.CREATED_AT_SORT_PARAM
 import static org.springframework.data.domain.PageRequest.of;
 import static org.springframework.data.domain.Sort.by;
 
+import java.util.UUID;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import br.com.fiap.gfood.api.core.domain.ApiPageResponse;
+import br.com.fiap.gfood.api.core.domain.ApiResponse;
 import br.com.fiap.gfood.api.core.services.customer.CustomerService;
 import br.com.fiap.gfood.api.presentation.models.CreateCustomerRequest;
+import br.com.fiap.gfood.api.presentation.models.UpdateCustomerRequest;
 
 @Component
 public class CustomerController implements CustomerResource
@@ -22,17 +27,23 @@ public class CustomerController implements CustomerResource
 	}
 
 	@Override
-	public ResponseEntity<Object> findAllFiltering(String fullName, Integer page, Integer size)
+	public ResponseEntity<ApiPageResponse> findAllFiltering(String fullName, Integer page, Integer size)
 	{
-		return ResponseEntity.ok(
-				service.findAllFiltering(fullName, of(page, size, by(CREATED_AT_SORT_PARAMETER))));
+		return ResponseEntity
+				.ok(service.findAllFiltering(fullName, of(page, size, by(CREATED_AT_SORT_PARAMETER))));
 	}
 
 	@Override
-	public ResponseEntity<Object> create(CreateCustomerRequest payload)
+	public ResponseEntity<ApiResponse> create(CreateCustomerRequest payload)
 	{
-		
+
 		return new ResponseEntity<>(service.create(payload), HttpStatus.CREATED);
+	}
+
+	@Override
+	public ResponseEntity<ApiResponse> update(UUID id, UpdateCustomerRequest payload)
+	{
+		return new ResponseEntity<>(service.update(id, payload), HttpStatus.OK);
 	}
 
 }

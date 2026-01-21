@@ -1,7 +1,11 @@
 package br.com.fiap.gfood.api.core.services.customer;
 
+import static br.com.fiap.gfood.api.core.commons.Constants.MESSAGE_ERROR_CUSTOMER_NOT_FOUND;
 import static br.com.fiap.gfood.api.core.commons.Constants.MESSAGE_ERROR_EMAIL_IS_ALREADY_USED;
+import static java.util.Objects.isNull;
 import static org.apache.commons.lang3.StringUtils.isBlank;
+
+import java.util.UUID;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,26 +15,24 @@ import br.com.fiap.gfood.api.core.domain.ApiPageResponse;
 import br.com.fiap.gfood.api.core.domain.ApiResponse;
 import br.com.fiap.gfood.api.core.domain.Customer;
 import br.com.fiap.gfood.api.core.exceptions.EmailAlreadyUsedException;
-import br.com.fiap.gfood.api.core.exceptions.GlobalExceptionHandler;
 import br.com.fiap.gfood.api.core.parsers.customer.CustomerParser;
 import br.com.fiap.gfood.api.data.entities.CustomerData;
 import br.com.fiap.gfood.api.data.repositories.CustomerRepository;
 import br.com.fiap.gfood.api.presentation.models.CreateCustomerRequest;
+import br.com.fiap.gfood.api.presentation.models.UpdateCustomerRequest;
+import jakarta.persistence.EntityNotFoundException;
 
 @Component
 public class CustomerServiceImpl implements CustomerService
 {
 
-	private final GlobalExceptionHandler globalExceptionHandler;
 	private final CustomerRepository repository;
 	private final CustomerParser parser;
 
-	public CustomerServiceImpl(CustomerRepository repository, CustomerParser parser,
-			GlobalExceptionHandler globalExceptionHandler)
+	public CustomerServiceImpl(CustomerRepository repository, CustomerParser parser)
 	{
 		this.repository = repository;
 		this.parser = parser;
-		this.globalExceptionHandler = globalExceptionHandler;
 	}
 
 	@Override
@@ -52,6 +54,19 @@ public class CustomerServiceImpl implements CustomerService
 				.login(payload.login()).password(payload.password()).type(payload.type()).build();
 		Customer savedCustomer = parser.toDomain(repository.save(newCustomer));
 		return new ApiResponse(Boolean.TRUE, savedCustomer);
+	}
+
+	@Override
+	public ApiResponse update(UUID id, UpdateCustomerRequest payload)
+	{
+		CustomerData customer = repository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException(MESSAGE_ERROR_CUSTOMER_NOT_FOUND));
+		customer.setFullName(isBlank(payload.fullName()) ? customer.getFullName() : payload.fullName());
+		customer.setEmail(isBlank(payload.email()) ? customer.getEmail() : payload.email());
+		customer.setLogin(isBlank(payload.login()) ? customer.getLogin() : payload.login());
+		customer.setType(isNull(payload.type()) ? customer.getType() : payload.type());
+		customer = repository.save(customer);
+		return new ApiResponse(Boolean.TRUE, parser.toDomain(customer));
 	}
 
 }
