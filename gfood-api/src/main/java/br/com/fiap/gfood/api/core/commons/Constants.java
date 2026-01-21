@@ -17,4 +17,8 @@ public final class Constants
 	public static final String THE_CUSTOMER_REQUESTED_TO_UPDATE_WAS_NOT_FOUND_TRY_AGAIN = "The customer reuqested to updated was not found. Try again.";
 	public static final String METHOD_NOT_ALLOWED = "Method requested not allowes";
 	public static final String METHOD_THAT_WAS_REQUESTED_IS_NOT_ALLOWED_BY_BUSINESS_LOGIC = "Method that was requested is not allowed by business logic.";
+	public static final String THE_OLD_PASSWORD_MISMATCH = "The old password informed mismatch";
+	public static final String THE_OLD_PASSWORD_INFORMED_BODY_REQUISITION_MISMATCHED_DETAILED = "The old password informed on the body requisition mismatched with the real password.";
+	public static final String THE_CONFIRMATION_OF_NEW_PASSWORD_MISMATCH = "The confirmation password mismatched.";
+	public static final String THE_CONFIRMATION_PASSWORD_INFORMED_ON_REQUEST_BODY_MISMATCHED = "The confirmation password informed on the request body mismatched with the new password. Verify and try again.";
 }

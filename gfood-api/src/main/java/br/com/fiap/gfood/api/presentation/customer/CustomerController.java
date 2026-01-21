@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.fiap.gfood.api.core.domain.ApiPageResponse;
 import br.com.fiap.gfood.api.core.domain.ApiResponse;
+import br.com.fiap.gfood.api.core.domain.ChangePasswordRequest;
 import br.com.fiap.gfood.api.core.services.customer.CustomerService;
 import br.com.fiap.gfood.api.presentation.models.CreateCustomerRequest;
 import br.com.fiap.gfood.api.presentation.models.UpdateCustomerRequest;
@@ -51,6 +52,12 @@ public class CustomerController implements CustomerResource
 	{
 		service.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.ACCEPTED);
+	}
+
+	@Override
+	public ResponseEntity<Object> changePassword(UUID id, ChangePasswordRequest payload)
+	{
+		return new ResponseEntity<>(service.changePassword(id, payload), HttpStatus.OK);
 	}
 
 }

@@ -14,7 +14,7 @@ public class CustomerParserImpl implements CustomerParser
 	{
 		return Customer.builder().id(entity.getId()).fullName(entity.getFullName()).email(entity.getEmail())
 				.login(entity.getLogin()).createdAt(entity.getCreatedAt())
-				.updatedAt(entity.getUpdatedAt()).build();
+				.updatedAt(entity.getUpdatedAt()).type(entity.getType()).build();
 	}
 
 }

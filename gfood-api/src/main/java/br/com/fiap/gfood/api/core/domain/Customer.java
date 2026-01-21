@@ -3,6 +3,7 @@ package br.com.fiap.gfood.api.core.domain;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import br.com.fiap.gfood.api.core.commons.enums.TypeCustomer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,6 +24,8 @@ public class Customer
 	private String login;
 	
 	private String email;
+	
+	private TypeCustomer type;
 	
 	private LocalDateTime createdAt;
 	

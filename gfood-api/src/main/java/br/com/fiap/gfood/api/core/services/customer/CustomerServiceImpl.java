@@ -12,16 +12,21 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import br.com.fiap.gfood.api.core.commons.Constants;
 import br.com.fiap.gfood.api.core.domain.ApiPageResponse;
 import br.com.fiap.gfood.api.core.domain.ApiResponse;
+import br.com.fiap.gfood.api.core.domain.ChangePasswordRequest;
 import br.com.fiap.gfood.api.core.domain.Customer;
 import br.com.fiap.gfood.api.core.exceptions.EmailAlreadyUsedException;
+import br.com.fiap.gfood.api.core.exceptions.PasswordConfirmationMismatchException;
+import br.com.fiap.gfood.api.core.exceptions.PasswordMismatchException;
 import br.com.fiap.gfood.api.core.parsers.customer.CustomerParser;
 import br.com.fiap.gfood.api.data.entities.CustomerData;
 import br.com.fiap.gfood.api.data.repositories.CustomerRepository;
 import br.com.fiap.gfood.api.presentation.models.CreateCustomerRequest;
 import br.com.fiap.gfood.api.presentation.models.UpdateCustomerRequest;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.constraints.NotNull;
 
 @Component
 public class CustomerServiceImpl implements CustomerService
@@ -79,6 +84,26 @@ public class CustomerServiceImpl implements CustomerService
 		CompletableFuture.runAsync(() -> {
 			repository.deleteById(id);
 		});
+	}
+
+	@Override
+	public ApiResponse changePassword(@NotNull(message = "THe id of customer must be informed") UUID id,
+			ChangePasswordRequest payload)
+	{
+		CustomerData customer = repository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException(MESSAGE_ERROR_CUSTOMER_NOT_FOUND));
+		if (!payload.oldPassword().equals(customer.getPassword()))
+		{
+			throw new PasswordMismatchException(Constants.THE_OLD_PASSWORD_MISMATCH);
+		}
+		if (!payload.newPassword().equals(payload.confirmPassword()))
+		{
+			throw new PasswordConfirmationMismatchException(
+					Constants.THE_CONFIRMATION_OF_NEW_PASSWORD_MISMATCH);
+		}
+		customer.setPassword(payload.newPassword());
+		Customer customerDomain = parser.toDomain(repository.save(customer));
+		return new ApiResponse(Boolean.TRUE, customerDomain);
 	}
 
 }
