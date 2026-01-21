@@ -1,5 +1,6 @@
 package br.com.fiap.gfood.api.data.repositories;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
@@ -14,5 +15,7 @@ public interface CustomerRepository extends JpaRepository<CustomerData, UUID>
 	Page<CustomerData> findAllByFullNameContaining(String firstName, Pageable pageable);
 
 	boolean existsByEmail(String email);
+
+	Optional<CustomerData> findByLoginAndPassword(String login, String password);
 
 }

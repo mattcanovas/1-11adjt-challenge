@@ -94,5 +94,16 @@ public class GlobalExceptionHandler
 				Constants.THE_CONFIRMATION_PASSWORD_INFORMED_ON_REQUEST_BODY_MISMATCHED, errors),
 				HttpStatus.PRECONDITION_FAILED);
 	}
+	
+	@ExceptionHandler(exception = AuthenticationFailedException.class)
+	public ResponseEntity<Object> authenticationFailedExceptionHandler(AuthenticationFailedException exception, HttpServletRequest request) {
+		Map<String, String> errors = new HashMap<>();
+		errors.put("login", exception.getMessage());
+		errors.put("password", exception.getMessage());
+		return new ResponseEntity<>(new ProblemDetail(Boolean.FALSE, request.getRequestURL().toString(),
+				exception.getMessage(),
+				Constants.THE_LOGIN_AND_PASSWORD_INFORMED_ON_REQUEST_BODY_ARE_INVALID, errors),
+				HttpStatus.PRECONDITION_FAILED);
+	}
 
 }

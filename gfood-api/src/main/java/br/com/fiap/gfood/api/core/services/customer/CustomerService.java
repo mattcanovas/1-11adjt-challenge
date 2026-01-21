@@ -9,6 +9,7 @@ import br.com.fiap.gfood.api.core.domain.ApiPageResponse;
 import br.com.fiap.gfood.api.core.domain.ApiResponse;
 import br.com.fiap.gfood.api.core.domain.ChangePasswordRequest;
 import br.com.fiap.gfood.api.presentation.models.CreateCustomerRequest;
+import br.com.fiap.gfood.api.presentation.models.SignInRequest;
 import br.com.fiap.gfood.api.presentation.models.UpdateCustomerRequest;
 import jakarta.validation.constraints.NotNull;
 
@@ -25,4 +26,6 @@ public interface CustomerService
 
 	ApiResponse changePassword(@NotNull(message = "THe id of customer must be informed") UUID id,
 			ChangePasswordRequest payload);
+
+	ApiResponse signIn(SignInRequest payload);
 }

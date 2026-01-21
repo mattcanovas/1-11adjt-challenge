@@ -17,6 +17,7 @@ import br.com.fiap.gfood.api.core.domain.ApiPageResponse;
 import br.com.fiap.gfood.api.core.domain.ApiResponse;
 import br.com.fiap.gfood.api.core.domain.ChangePasswordRequest;
 import br.com.fiap.gfood.api.core.domain.Customer;
+import br.com.fiap.gfood.api.core.exceptions.AuthenticationFailedException;
 import br.com.fiap.gfood.api.core.exceptions.EmailAlreadyUsedException;
 import br.com.fiap.gfood.api.core.exceptions.PasswordConfirmationMismatchException;
 import br.com.fiap.gfood.api.core.exceptions.PasswordMismatchException;
@@ -24,6 +25,7 @@ import br.com.fiap.gfood.api.core.parsers.customer.CustomerParser;
 import br.com.fiap.gfood.api.data.entities.CustomerData;
 import br.com.fiap.gfood.api.data.repositories.CustomerRepository;
 import br.com.fiap.gfood.api.presentation.models.CreateCustomerRequest;
+import br.com.fiap.gfood.api.presentation.models.SignInRequest;
 import br.com.fiap.gfood.api.presentation.models.UpdateCustomerRequest;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.constraints.NotNull;
@@ -104,6 +106,14 @@ public class CustomerServiceImpl implements CustomerService
 		customer.setPassword(payload.newPassword());
 		Customer customerDomain = parser.toDomain(repository.save(customer));
 		return new ApiResponse(Boolean.TRUE, customerDomain);
+	}
+
+	@Override
+	public ApiResponse signIn(SignInRequest payload)
+	{
+		repository.findByLoginAndPassword(payload.login(), payload.password()).orElseThrow(
+				() -> new AuthenticationFailedException(Constants.INVALID_LOGIN_AND_PASSWORD));
+		return new ApiResponse(Boolean.TRUE, Boolean.TRUE);
 	}
 
 }

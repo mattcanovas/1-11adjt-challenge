@@ -21,4 +21,6 @@ public final class Constants
 	public static final String THE_OLD_PASSWORD_INFORMED_BODY_REQUISITION_MISMATCHED_DETAILED = "The old password informed on the body requisition mismatched with the real password.";
 	public static final String THE_CONFIRMATION_OF_NEW_PASSWORD_MISMATCH = "The confirmation password mismatched.";
 	public static final String THE_CONFIRMATION_PASSWORD_INFORMED_ON_REQUEST_BODY_MISMATCHED = "The confirmation password informed on the request body mismatched with the new password. Verify and try again.";
+	public static final String INVALID_LOGIN_AND_PASSWORD = "Invalid login and password.";
+	public static final String THE_LOGIN_AND_PASSWORD_INFORMED_ON_REQUEST_BODY_ARE_INVALID = "The login and password informed in the request body are invalid. Try again";
 }

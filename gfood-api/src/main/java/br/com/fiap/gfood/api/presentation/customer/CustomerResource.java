@@ -21,6 +21,7 @@ import br.com.fiap.gfood.api.core.domain.ApiPageResponse;
 import br.com.fiap.gfood.api.core.domain.ApiResponse;
 import br.com.fiap.gfood.api.core.domain.ChangePasswordRequest;
 import br.com.fiap.gfood.api.presentation.models.CreateCustomerRequest;
+import br.com.fiap.gfood.api.presentation.models.SignInRequest;
 import br.com.fiap.gfood.api.presentation.models.UpdateCustomerRequest;
 import jakarta.validation.constraints.NotNull;
 
@@ -46,4 +47,7 @@ public interface CustomerResource
 
 	@PatchMapping("/change-password/{id}")
 	ResponseEntity<Object> changePassword(@PathVariable @NotNull(message = "The id of customer must be informed") UUID id, @RequestBody @Validated ChangePasswordRequest payload);
+	
+	@PostMapping("/signin")
+	ResponseEntity<Object> signIn(@RequestBody @Validated SignInRequest payload);
 }
