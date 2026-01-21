@@ -1,0 +1,297 @@
+{
+  "info": {
+    "_postman_id": "00391005-8e6a-488a-96f2-b75e35baa8a3",
+    "name": "Fiap",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "15326936",
+    "_collection_link": "https://go.postman.co/collection/15326936-00391005-8e6a-488a-96f2-b75e35baa8a3?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Customers",
+      "item": [
+        {
+          "name": "findAll()",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/v1/customer",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "v1",
+                "customer"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "(invalid) create()",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/v1/customer",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "v1",
+                "customer"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "(invalid) update()",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"fullName\": \"Juliana de Oliveira Martins\",\r\n    \"login\": \"ju.canovas\",\r\n    \"password\": \"Abacaxi4730\",\r\n    \"email\": \"teste@gmail.com\",\r\n    \"type\": \"DEFAULT\",\r\n    \"address\": \"Av. Aclimação, 120\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/v1/customer/187d21b8-c697-40a8-83f3-27266f0c6c89",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "v1",
+                "customer",
+                "187d21b8-c697-40a8-83f3-27266f0c6c89"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "(invalid) changePassword()",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"old_password\": \"Abacaxi4730\",\r\n    \"new_password\": \"Sono3540\",\r\n    \"confirm_password\": \"Sono3540\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/v1/customer/change-password/187d21b8-c697-40a8-83f3-27266f0c6c89",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "v1",
+                "customer",
+                "change-password",
+                "187d21b8-c697-40a8-83f3-27266f0c6c89"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "(invalid) signIn()",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"login\": \"ju.canovas\",\r\n    \"password\": \"Sono3541\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/v1/customer/signin",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "v1",
+                "customer",
+                "signin"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create()",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"fullName\": \"Matheus Canovas Almeida Santos\",\r\n    \"login\": \"matheus.canovas\",\r\n    \"password\": \"Abacaxi4730\",\r\n    \"email\": \"matheuscanovas9@gmail.com\",\r\n    \"type\": \"OWNER\",\r\n    \"address\": \"Rua Basilio da Cunha 889, Apto. 122\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/v1/customer",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "v1",
+                "customer"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update()",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"fullName\": \"Juliana de Oliveira Martins\",\r\n    \"login\": \"ju.canovas\",\r\n    \"password\": \"Abacaxi4730\",\r\n    \"email\": \"teste@gmail.com\",\r\n    \"type\": \"DEFAULT\",\r\n    \"address\": \"Av. Aclimação, 120\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/v1/customer/187d21b8-c697-40a8-83f3-27266f0c6c89",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "v1",
+                "customer",
+                "187d21b8-c697-40a8-83f3-27266f0c6c89"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete()",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/v1/customer/7b3a8a7c-6f38-49e2-b0a4-efe9acf5fce1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "v1",
+                "customer",
+                "7b3a8a7c-6f38-49e2-b0a4-efe9acf5fce1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "changePassword()",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"old_password\": \"Abacaxi4730\",\r\n    \"new_password\": \"Sono3540\",\r\n    \"confirm_password\": \"Sono3540\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/v1/customer/change-password/187d21b8-c697-40a8-83f3-27266f0c6c89",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "v1",
+                "customer",
+                "change-password",
+                "187d21b8-c697-40a8-83f3-27266f0c6c89"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "signin",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"login\": \"ju.canovas\",\r\n    \"password\": \"Sono3541\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/v1/customer/signin",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "v1",
+                "customer",
+                "signin"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
