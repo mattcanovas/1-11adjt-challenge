@@ -1,4 +1,4 @@
-package br.com.fiap.gfood.api.core.domain;
+package br.com.fiap.gfood.api.presentation.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

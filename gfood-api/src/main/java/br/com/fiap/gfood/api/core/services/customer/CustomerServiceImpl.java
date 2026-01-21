@@ -3,10 +3,10 @@ package br.com.fiap.gfood.api.core.services.customer;
 import static br.com.fiap.gfood.api.core.commons.Constants.MESSAGE_ERROR_CUSTOMER_NOT_FOUND;
 import static br.com.fiap.gfood.api.core.commons.Constants.MESSAGE_ERROR_EMAIL_IS_ALREADY_USED;
 import static java.util.Objects.isNull;
+import static java.util.concurrent.CompletableFuture.runAsync;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 import br.com.fiap.gfood.api.core.commons.Constants;
 import br.com.fiap.gfood.api.core.domain.ApiPageResponse;
 import br.com.fiap.gfood.api.core.domain.ApiResponse;
-import br.com.fiap.gfood.api.core.domain.ChangePasswordRequest;
 import br.com.fiap.gfood.api.core.domain.Customer;
 import br.com.fiap.gfood.api.core.exceptions.AuthenticationFailedException;
 import br.com.fiap.gfood.api.core.exceptions.EmailAlreadyUsedException;
@@ -24,6 +23,7 @@ import br.com.fiap.gfood.api.core.exceptions.PasswordMismatchException;
 import br.com.fiap.gfood.api.core.parsers.customer.CustomerParser;
 import br.com.fiap.gfood.api.data.entities.CustomerData;
 import br.com.fiap.gfood.api.data.repositories.CustomerRepository;
+import br.com.fiap.gfood.api.presentation.models.ChangePasswordRequest;
 import br.com.fiap.gfood.api.presentation.models.CreateCustomerRequest;
 import br.com.fiap.gfood.api.presentation.models.SignInRequest;
 import br.com.fiap.gfood.api.presentation.models.UpdateCustomerRequest;
@@ -58,7 +58,8 @@ public class CustomerServiceImpl implements CustomerService
 			throw new EmailAlreadyUsedException(MESSAGE_ERROR_EMAIL_IS_ALREADY_USED);
 		}
 		CustomerData newCustomer = CustomerData.builder().fullName(payload.fullName()).email(payload.email())
-				.login(payload.login()).password(payload.password()).type(payload.type()).address(payload.address()).build();
+				.login(payload.login()).password(payload.password()).type(payload.type())
+				.address(payload.address()).build();
 		Customer savedCustomer = parser.toDomain(repository.save(newCustomer));
 		return new ApiResponse(Boolean.TRUE, savedCustomer);
 	}
@@ -76,6 +77,7 @@ public class CustomerServiceImpl implements CustomerService
 		customer.setEmail(isBlank(payload.email()) ? customer.getEmail() : payload.email());
 		customer.setLogin(isBlank(payload.login()) ? customer.getLogin() : payload.login());
 		customer.setType(isNull(payload.type()) ? customer.getType() : payload.type());
+		customer.setAddress(isBlank(payload.address()) ? customer.getAddress() : payload.address());
 		customer = repository.save(customer);
 		return new ApiResponse(Boolean.TRUE, parser.toDomain(customer));
 	}
@@ -83,9 +85,7 @@ public class CustomerServiceImpl implements CustomerService
 	@Override
 	public void deleteById(UUID id)
 	{
-		CompletableFuture.runAsync(() -> {
-			repository.deleteById(id);
-		});
+		runAsync(() -> repository.deleteById(id));
 	}
 
 	@Override
