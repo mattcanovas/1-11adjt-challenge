@@ -28,6 +28,7 @@ services:
     gfood-api:
         container_name: gfood-api
         build:
+            context: ../gfood-api
             dockerfile: ../gfood-api/Dockerfile
         env_file: ./.env
         ports:

@@ -55,4 +55,4 @@ COPY --from=build --chown=appuser:appgroup /app/app.jar /app/app.jar
 EXPOSE 8080 8000
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
 	CMD wget --quiet --tries=1 --spider http://localhost:8080/actuator/health || exit 1
-CMD ["sh", "-c", "java $JAVA_OPTS -jar /app/app.jar"]
+CMD ["sh", "-c", "java -Xdebug $JAVA_OPTS -jar /app/app.jar"]
