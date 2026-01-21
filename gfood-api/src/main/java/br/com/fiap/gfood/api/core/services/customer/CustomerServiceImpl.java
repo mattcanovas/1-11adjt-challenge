@@ -61,6 +61,10 @@ public class CustomerServiceImpl implements CustomerService
 	{
 		CustomerData customer = repository.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException(MESSAGE_ERROR_CUSTOMER_NOT_FOUND));
+		if (repository.existsByEmail(payload.email()))
+		{
+			throw new EmailAlreadyUsedException(MESSAGE_ERROR_EMAIL_IS_ALREADY_USED);
+		}
 		customer.setFullName(isBlank(payload.fullName()) ? customer.getFullName() : payload.fullName());
 		customer.setEmail(isBlank(payload.email()) ? customer.getEmail() : payload.email());
 		customer.setLogin(isBlank(payload.login()) ? customer.getLogin() : payload.login());
