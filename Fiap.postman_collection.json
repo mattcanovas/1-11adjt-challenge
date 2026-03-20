@@ -3,293 +3,2995 @@
     "_postman_id": "00391005-8e6a-488a-96f2-b75e35baa8a3",
     "name": "Fiap",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "15326936",
-    "_collection_link": "https://go.postman.co/collection/15326936-00391005-8e6a-488a-96f2-b75e35baa8a3?source=collection_link"
+    "_exporter_id": "15326936"
   },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "typeUserId",
+      "value": ""
+    },
+    {
+      "key": "typeUserOwnerName",
+      "value": "OWNER"
+    },
+    {
+      "key": "userId",
+      "value": ""
+    },
+    {
+      "key": "userEmail",
+      "value": ""
+    },
+    {
+      "key": "userLogin",
+      "value": ""
+    },
+    {
+      "key": "userPassword",
+      "value": ""
+    },
+    {
+      "key": "restaurantId",
+      "value": ""
+    },
+    {
+      "key": "itemId",
+      "value": ""
+    }
+  ],
   "item": [
     {
-      "name": "Customers",
+      "name": "Type User",
       "item": [
         {
-          "name": "findAll()",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8080/v1/customer",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "v1",
-                "customer"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "(invalid) create()",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+          "name": "Valid Requests",
+          "item": [
+            {
+              "name": "Create TypeUser - OWNER",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 201', function () {",
+                      "    pm.response.to.have.status(201);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Response has success true', function () {",
+                      "    pm.expect(jsonData.success).to.eql(true);",
+                      "});",
+                      "if (jsonData.data && jsonData.data.id) {",
+                      "    pm.collectionVariables.set('typeUserId', jsonData.data.id);",
+                      "}"
+                    ],
+                    "type": "text/javascript"
+                  }
                 }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:8080/v1/customer",
-              "protocol": "http",
-              "host": [
-                "localhost"
               ],
-              "port": "8080",
-              "path": [
-                "v1",
-                "customer"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "(invalid) update()",
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"fullName\": \"Juliana de Oliveira Martins\",\r\n    \"login\": \"ju.canovas\",\r\n    \"password\": \"Abacaxi4730\",\r\n    \"email\": \"teste@gmail.com\",\r\n    \"type\": \"DEFAULT\",\r\n    \"address\": \"Av. Aclimação, 120\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"OWNER\",\n    \"description\": \"Restaurant owner user type\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/type-user",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "type-user"]
                 }
-              }
+              },
+              "response": []
             },
-            "url": {
-              "raw": "http://localhost:8080/v1/customer/187d21b8-c697-40a8-83f3-27266f0c6c89",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "v1",
-                "customer",
-                "187d21b8-c697-40a8-83f3-27266f0c6c89"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "(invalid) changePassword()",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"old_password\": \"Abacaxi4730\",\r\n    \"new_password\": \"Sono3540\",\r\n    \"confirm_password\": \"Sono3540\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+            {
+              "name": "Create TypeUser - DEFAULT",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 201', function () {",
+                      "    pm.response.to.have.status(201);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Response has success true', function () {",
+                      "    pm.expect(jsonData.success).to.eql(true);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
                 }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:8080/v1/customer/change-password/187d21b8-c697-40a8-83f3-27266f0c6c89",
-              "protocol": "http",
-              "host": [
-                "localhost"
               ],
-              "port": "8080",
-              "path": [
-                "v1",
-                "customer",
-                "change-password",
-                "187d21b8-c697-40a8-83f3-27266f0c6c89"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "(invalid) signIn()",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"login\": \"ju.canovas\",\r\n    \"password\": \"Sono3541\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"DEFAULT\",\n    \"description\": \"Default customer user type\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/type-user",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "type-user"]
                 }
-              }
+              },
+              "response": []
             },
-            "url": {
-              "raw": "http://localhost:8080/v1/customer/signin",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "v1",
-                "customer",
-                "signin"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "create()",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"fullName\": \"Matheus Canovas Almeida Santos\",\r\n    \"login\": \"matheus.canovas\",\r\n    \"password\": \"Abacaxi4730\",\r\n    \"email\": \"matheuscanovas9@gmail.com\",\r\n    \"type\": \"OWNER\",\r\n    \"address\": \"Rua Basilio da Cunha 889, Apto. 122\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+            {
+              "name": "Create TypeUser - Minimal (no description)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 201', function () {",
+                      "    pm.response.to.have.status(201);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
                 }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:8080/v1/customer",
-              "protocol": "http",
-              "host": [
-                "localhost"
               ],
-              "port": "8080",
-              "path": [
-                "v1",
-                "customer"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "update()",
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"fullName\": \"Juliana de Oliveira Martins\",\r\n    \"login\": \"ju.canovas\",\r\n    \"password\": \"Abacaxi4730\",\r\n    \"email\": \"teste@gmail.com\",\r\n    \"type\": \"DEFAULT\",\r\n    \"address\": \"Av. Aclimação, 120\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"DELIVERY\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/type-user",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "type-user"]
                 }
-              }
+              },
+              "response": []
             },
-            "url": {
-              "raw": "http://localhost:8080/v1/customer/187d21b8-c697-40a8-83f3-27266f0c6c89",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "v1",
-                "customer",
-                "187d21b8-c697-40a8-83f3-27266f0c6c89"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "delete()",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8080/v1/customer/7b3a8a7c-6f38-49e2-b0a4-efe9acf5fce1",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "v1",
-                "customer",
-                "7b3a8a7c-6f38-49e2-b0a4-efe9acf5fce1"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "changePassword()",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"old_password\": \"Abacaxi4730\",\r\n    \"new_password\": \"Sono3540\",\r\n    \"confirm_password\": \"Sono3540\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+            {
+              "name": "FindAll TypeUsers",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 200', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Response has success true', function () {",
+                      "    pm.expect(jsonData.success).to.eql(true);",
+                      "});",
+                      "pm.test('Response has page content', function () {",
+                      "    pm.expect(jsonData.page).to.have.property('content');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
                 }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:8080/v1/customer/change-password/187d21b8-c697-40a8-83f3-27266f0c6c89",
-              "protocol": "http",
-              "host": [
-                "localhost"
               ],
-              "port": "8080",
-              "path": [
-                "v1",
-                "customer",
-                "change-password",
-                "187d21b8-c697-40a8-83f3-27266f0c6c89"
-              ]
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/type-user?page=0&size=10",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "type-user"],
+                  "query": [
+                    { "key": "page", "value": "0" },
+                    { "key": "size", "value": "10" }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "FindAll TypeUsers - Filter by name",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 200', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/type-user?name=OWNER&page=0&size=10",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "type-user"],
+                  "query": [
+                    { "key": "name", "value": "OWNER" },
+                    { "key": "page", "value": "0" },
+                    { "key": "size", "value": "10" }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "FindById TypeUser",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 200', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Response has success true', function () {",
+                      "    pm.expect(jsonData.success).to.eql(true);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/type-user/{{typeUserId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "type-user", "{{typeUserId}}"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update TypeUser",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 200', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Response has success true', function () {",
+                      "    pm.expect(jsonData.success).to.eql(true);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"OWNER\",\n    \"description\": \"Restaurant owner - updated description\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/type-user/{{typeUserId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "type-user", "{{typeUserId}}"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete TypeUser",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 202', function () {",
+                      "    pm.response.to.have.status(202);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/type-user/{{typeUserId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "type-user", "{{typeUserId}}"]
+                }
+              },
+              "response": []
             }
-          },
-          "response": []
+          ]
         },
         {
-          "name": "signin",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"login\": \"ju.canovas\",\r\n    \"password\": \"Sono3541\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+          "name": "Invalid Requests",
+          "item": [
+            {
+              "name": "Create TypeUser - Empty body (400)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 400', function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Response has success false', function () {",
+                      "    pm.expect(jsonData.success).to.eql(false);",
+                      "});",
+                      "pm.test('Response has validation errors', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('name');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
                 }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:8080/v1/customer/signin",
-              "protocol": "http",
-              "host": [
-                "localhost"
               ],
-              "port": "8080",
-              "path": [
-                "v1",
-                "customer",
-                "signin"
-              ]
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/type-user",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "type-user"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create TypeUser - Name too short (400)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 400', function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Has name size validation error', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('name');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"A\",\n    \"description\": \"Name too short\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/type-user",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "type-user"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create TypeUser - Duplicate name (412)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 412', function () {",
+                      "    pm.response.to.have.status(412);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Response has success false', function () {",
+                      "    pm.expect(jsonData.success).to.eql(false);",
+                      "});",
+                      "pm.test('Has name already exists error', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('name');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"OWNER\",\n    \"description\": \"Duplicate name - should fail\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/type-user",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "type-user"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create TypeUser - Description too long (400)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 400', function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"LONGDESC\",\n    \"description\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in repr\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/type-user",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "type-user"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update TypeUser - Not found (412)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 412', function () {",
+                      "    pm.response.to.have.status(412);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Has id not found error', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('id');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"UPDATED\",\n    \"description\": \"This should fail - ID does not exist\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/type-user/00000000-0000-0000-0000-000000000000",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "type-user", "00000000-0000-0000-0000-000000000000"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update TypeUser - Empty body (400)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 400', function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/type-user/{{typeUserId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "type-user", "{{typeUserId}}"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "FindById TypeUser - Not found (412)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 412', function () {",
+                      "    pm.response.to.have.status(412);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/type-user/00000000-0000-0000-0000-000000000000",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "type-user", "00000000-0000-0000-0000-000000000000"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "TypeUser - Wrong HTTP method (405)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 405', function () {",
+                      "    pm.response.to.have.status(405);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/type-user",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "type-user"]
+                }
+              },
+              "response": []
             }
-          },
-          "response": []
+          ]
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Valid Requests",
+          "item": [
+            {
+              "name": "Create User",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 201', function () {",
+                      "    pm.response.to.have.status(201);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Response has success true', function () {",
+                      "    pm.expect(jsonData.success).to.eql(true);",
+                      "});",
+                      "if (jsonData.data && jsonData.data.id) {",
+                      "    pm.collectionVariables.set('userId', jsonData.data.id);",
+                      "    pm.collectionVariables.set('userEmail', jsonData.data.email);",
+                      "    pm.collectionVariables.set('userLogin', 'matheus.canovas');",
+                      "    pm.collectionVariables.set('userPassword', 'Abacaxi4730');",
+                      "}"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"fullName\": \"Matheus Canovas Almeida Santos\",\n    \"login\": \"matheus.canovas\",\n    \"password\": \"Abacaxi4730\",\n    \"email\": \"matheuscanovas9@gmail.com\",\n    \"typeUserId\": \"{{typeUserId}}\",\n    \"address\": \"Rua Basilio da Cunha 889, Apto. 122\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/user",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "user"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create User - Second user",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 201', function () {",
+                      "    pm.response.to.have.status(201);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"fullName\": \"Juliana de Oliveira Martins\",\n    \"login\": \"ju.oliveira\",\n    \"password\": \"Manga1234\",\n    \"email\": \"juliana.oliveira@gmail.com\",\n    \"typeUserId\": \"{{typeUserId}}\",\n    \"address\": \"Av. Paulista, 1000\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/user",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "user"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "FindAll Users",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 200', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Response has page content', function () {",
+                      "    pm.expect(jsonData.page).to.have.property('content');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/user?page=0&size=10",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "user"],
+                  "query": [
+                    { "key": "page", "value": "0" },
+                    { "key": "size", "value": "10" }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "FindAll Users - Filter by firstName",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 200', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/user?firstName=Matheus&page=0&size=10",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "user"],
+                  "query": [
+                    { "key": "firstName", "value": "Matheus" },
+                    { "key": "page", "value": "0" },
+                    { "key": "size", "value": "10" }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update User",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 200', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Response has success true', function () {",
+                      "    pm.expect(jsonData.success).to.eql(true);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"fullName\": \"Matheus Canovas A. Santos\",\n    \"login\": \"matheus.canovas\",\n    \"email\": \"matheuscanovas9@gmail.com\",\n    \"typeUserId\": \"{{typeUserId}}\",\n    \"address\": \"Rua Basilio da Cunha 889, Apto. 200\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/user/{{userId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "user", "{{userId}}"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Change Password",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 200', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Response has success true', function () {",
+                      "    pm.expect(jsonData.success).to.eql(true);",
+                      "});",
+                      "pm.collectionVariables.set('userPassword', 'Sono3540');"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"old_password\": \"Abacaxi4730\",\n    \"new_password\": \"Sono3540\",\n    \"confirm_password\": \"Sono3540\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/user/change-password/{{userId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "user", "change-password", "{{userId}}"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "SignIn",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 200', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('SignIn successful', function () {",
+                      "    pm.expect(jsonData.success).to.eql(true);",
+                      "    pm.expect(jsonData.data).to.eql(true);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"login\": \"matheus.canovas\",\n    \"password\": \"Sono3540\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/user/signin",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "user", "signin"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete User",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 202', function () {",
+                      "    pm.response.to.have.status(202);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/user/{{userId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "user", "{{userId}}"]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Invalid Requests",
+          "item": [
+            {
+              "name": "Create User - Empty body (400)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 400', function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Response has success false', function () {",
+                      "    pm.expect(jsonData.success).to.eql(false);",
+                      "});",
+                      "pm.test('Has validation errors for all required fields', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('fullName');",
+                      "    pm.expect(jsonData.errors).to.have.property('email');",
+                      "    pm.expect(jsonData.errors).to.have.property('login');",
+                      "    pm.expect(jsonData.errors).to.have.property('password');",
+                      "    pm.expect(jsonData.errors).to.have.property('typeUserId');",
+                      "    pm.expect(jsonData.errors).to.have.property('address');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/user",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "user"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create User - Invalid email (400)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 400', function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Has email validation error', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('email');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"fullName\": \"Test User\",\n    \"login\": \"test.user\",\n    \"password\": \"Test1234\",\n    \"email\": \"not-a-valid-email\",\n    \"typeUserId\": \"{{typeUserId}}\",\n    \"address\": \"Some address here\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/user",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "user"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create User - FullName too short (400)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 400', function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Has fullName size error', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('fullName');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"fullName\": \"Ab\",\n    \"login\": \"test.user\",\n    \"password\": \"Test1234\",\n    \"email\": \"test@gmail.com\",\n    \"typeUserId\": \"{{typeUserId}}\",\n    \"address\": \"Some address here\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/user",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "user"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create User - Login too short (400)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 400', function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Has login size error', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('login');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"fullName\": \"Test User Name\",\n    \"login\": \"ab\",\n    \"password\": \"Test1234\",\n    \"email\": \"logintest@gmail.com\",\n    \"typeUserId\": \"{{typeUserId}}\",\n    \"address\": \"Some address here\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/user",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "user"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create User - Password too short (400)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 400', function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Has password size error', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('password');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"fullName\": \"Test User Name\",\n    \"login\": \"test.user\",\n    \"password\": \"Ab12\",\n    \"email\": \"passtest@gmail.com\",\n    \"typeUserId\": \"{{typeUserId}}\",\n    \"address\": \"Some address here\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/user",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "user"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create User - Address too short (400)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 400', function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Has address size error', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('address');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"fullName\": \"Test User Name\",\n    \"login\": \"test.user\",\n    \"password\": \"Test1234\",\n    \"email\": \"addrtest@gmail.com\",\n    \"typeUserId\": \"{{typeUserId}}\",\n    \"address\": \"Abc\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/user",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "user"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create User - Duplicate email (412)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 412', function () {",
+                      "    pm.response.to.have.status(412);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Has email already used error', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('email');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"fullName\": \"Another User\",\n    \"login\": \"another.user\",\n    \"password\": \"Test1234\",\n    \"email\": \"matheuscanovas9@gmail.com\",\n    \"typeUserId\": \"{{typeUserId}}\",\n    \"address\": \"Some address here\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/user",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "user"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create User - TypeUser not found (412)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 412', function () {",
+                      "    pm.response.to.have.status(412);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Has type user not found error', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('id');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"fullName\": \"Another User\",\n    \"login\": \"another.user2\",\n    \"password\": \"Test1234\",\n    \"email\": \"nonexistent.type@gmail.com\",\n    \"typeUserId\": \"00000000-0000-0000-0000-000000000000\",\n    \"address\": \"Some address here\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/user",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "user"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update User - Not found (412)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 412', function () {",
+                      "    pm.response.to.have.status(412);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Has user not found error', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('id');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"fullName\": \"Updated Name\",\n    \"login\": \"updated.login\",\n    \"email\": \"updated@gmail.com\",\n    \"typeUserId\": \"{{typeUserId}}\",\n    \"address\": \"Updated address here\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/user/00000000-0000-0000-0000-000000000000",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "user", "00000000-0000-0000-0000-000000000000"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update User - Empty body (400)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 400', function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/user/{{userId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "user", "{{userId}}"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Change Password - User not found (412)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 412', function () {",
+                      "    pm.response.to.have.status(412);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"old_password\": \"OldPass123\",\n    \"new_password\": \"NewPass123\",\n    \"confirm_password\": \"NewPass123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/user/change-password/00000000-0000-0000-0000-000000000000",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "user", "change-password", "00000000-0000-0000-0000-000000000000"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Change Password - Wrong old password (412)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 412', function () {",
+                      "    pm.response.to.have.status(412);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Has old_password mismatch error', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('old_password');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"old_password\": \"WrongPassword123\",\n    \"new_password\": \"NewPass123\",\n    \"confirm_password\": \"NewPass123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/user/change-password/{{userId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "user", "change-password", "{{userId}}"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Change Password - Confirmation mismatch (412)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 412', function () {",
+                      "    pm.response.to.have.status(412);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Has confirmation mismatch error', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('confirmation_password');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"old_password\": \"Sono3540\",\n    \"new_password\": \"NewPass123\",\n    \"confirm_password\": \"DifferentPass456\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/user/change-password/{{userId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "user", "change-password", "{{userId}}"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Change Password - Empty body (400)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 400', function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Has validation errors', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('old_password');",
+                      "    pm.expect(jsonData.errors).to.have.property('new_password');",
+                      "    pm.expect(jsonData.errors).to.have.property('confirm_password');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/user/change-password/{{userId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "user", "change-password", "{{userId}}"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "SignIn - Invalid credentials (412)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 412', function () {",
+                      "    pm.response.to.have.status(412);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Has authentication error', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('login');",
+                      "    pm.expect(jsonData.errors).to.have.property('password');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"login\": \"matheus.canovas\",\n    \"password\": \"WrongPassword999\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/user/signin",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "user", "signin"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "SignIn - Empty body (400)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 400', function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Has validation errors', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('login');",
+                      "    pm.expect(jsonData.errors).to.have.property('password');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/user/signin",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "user", "signin"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "User - Wrong HTTP method (405)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 405', function () {",
+                      "    pm.response.to.have.status(405);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/user",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "user"]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Restaurant",
+      "item": [
+        {
+          "name": "Valid Requests",
+          "item": [
+            {
+              "name": "Create Restaurant",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 201', function () {",
+                      "    pm.response.to.have.status(201);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Response has success true', function () {",
+                      "    pm.expect(jsonData.success).to.eql(true);",
+                      "});",
+                      "if (jsonData.data && jsonData.data.id) {",
+                      "    pm.collectionVariables.set('restaurantId', jsonData.data.id);",
+                      "}"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Restaurante Sabor Paulista\",\n    \"address\": \"Rua Augusta, 1200, Sao Paulo\",\n    \"typeKitchen\": \"HIGH_GASTRONOMY\",\n    \"openingHours\": \"11:00 - 23:00\",\n    \"ownerId\": \"{{userId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/restaurant",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "restaurant"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Restaurant - Fast Food",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 201', function () {",
+                      "    pm.response.to.have.status(201);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Burger Express\",\n    \"address\": \"Av. Brigadeiro Faria Lima, 500\",\n    \"typeKitchen\": \"FAST_FOOD\",\n    \"openingHours\": \"08:00 - 22:00\",\n    \"ownerId\": \"{{userId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/restaurant",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "restaurant"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Restaurant - Food Truck",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 201', function () {",
+                      "    pm.response.to.have.status(201);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Taco Truck SP\",\n    \"address\": \"Praca da Se, Centro\",\n    \"typeKitchen\": \"FOOD_TRUCK\",\n    \"openingHours\": \"10:00 - 20:00\",\n    \"ownerId\": \"{{userId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/restaurant",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "restaurant"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Restaurant - Ghost Food",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 201', function () {",
+                      "    pm.response.to.have.status(201);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Dark Kitchen Delivery\",\n    \"address\": \"Rua Consolacao, 300\",\n    \"typeKitchen\": \"GHOST_FOOD\",\n    \"openingHours\": \"09:00 - 21:00\",\n    \"ownerId\": \"{{userId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/restaurant",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "restaurant"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "FindAll Restaurants",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 200', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Response has page content', function () {",
+                      "    pm.expect(jsonData.page).to.have.property('content');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/restaurant?page=0&size=10",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "restaurant"],
+                  "query": [
+                    { "key": "page", "value": "0" },
+                    { "key": "size", "value": "10" }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "FindAll Restaurants - Filter by name",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 200', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/restaurant?name=Sabor&page=0&size=10",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "restaurant"],
+                  "query": [
+                    { "key": "name", "value": "Sabor" },
+                    { "key": "page", "value": "0" },
+                    { "key": "size", "value": "10" }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "FindById Restaurant",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 200', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Response has success true', function () {",
+                      "    pm.expect(jsonData.success).to.eql(true);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/restaurant/{{restaurantId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "restaurant", "{{restaurantId}}"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Restaurant",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 200', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Response has success true', function () {",
+                      "    pm.expect(jsonData.success).to.eql(true);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Restaurante Sabor Paulista Premium\",\n    \"address\": \"Rua Augusta, 1200, Jardins, Sao Paulo\",\n    \"typeKitchen\": \"HIGH_GASTRONOMY\",\n    \"openingHours\": \"12:00 - 00:00\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/restaurant/{{restaurantId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "restaurant", "{{restaurantId}}"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Restaurant",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 202', function () {",
+                      "    pm.response.to.have.status(202);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/restaurant/{{restaurantId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "restaurant", "{{restaurantId}}"]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Invalid Requests",
+          "item": [
+            {
+              "name": "Create Restaurant - Empty body (400)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 400', function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Has validation errors for required fields', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('name');",
+                      "    pm.expect(jsonData.errors).to.have.property('address');",
+                      "    pm.expect(jsonData.errors).to.have.property('typeKitchen');",
+                      "    pm.expect(jsonData.errors).to.have.property('openingHours');",
+                      "    pm.expect(jsonData.errors).to.have.property('ownerId');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/restaurant",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "restaurant"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Restaurant - Name too short (400)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 400', function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Has name size error', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('name');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"A\",\n    \"address\": \"Some valid address\",\n    \"typeKitchen\": \"FAST_FOOD\",\n    \"openingHours\": \"08:00 - 22:00\",\n    \"ownerId\": \"{{userId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/restaurant",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "restaurant"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Restaurant - Address too short (400)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 400', function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Has address size error', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('address');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Valid Restaurant\",\n    \"address\": \"Ab\",\n    \"typeKitchen\": \"FAST_FOOD\",\n    \"openingHours\": \"08:00 - 22:00\",\n    \"ownerId\": \"{{userId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/restaurant",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "restaurant"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Restaurant - Invalid opening hours format (400)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 400', function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Has openingHours pattern error', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('openingHours');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Valid Restaurant Name\",\n    \"address\": \"Some valid address\",\n    \"typeKitchen\": \"FAST_FOOD\",\n    \"openingHours\": \"8am to 10pm\",\n    \"ownerId\": \"{{userId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/restaurant",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "restaurant"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Restaurant - Invalid typeKitchen (400)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 400', function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Valid Restaurant Name\",\n    \"address\": \"Some valid address\",\n    \"typeKitchen\": \"INVALID_TYPE\",\n    \"openingHours\": \"08:00 - 22:00\",\n    \"ownerId\": \"{{userId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/restaurant",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "restaurant"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Restaurant - Duplicate name (412)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 412', function () {",
+                      "    pm.response.to.have.status(412);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Has name already exists error', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('name');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Restaurante Sabor Paulista\",\n    \"address\": \"Another address here\",\n    \"typeKitchen\": \"FAST_FOOD\",\n    \"openingHours\": \"08:00 - 22:00\",\n    \"ownerId\": \"{{userId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/restaurant",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "restaurant"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Restaurant - Owner not found (412)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 412', function () {",
+                      "    pm.response.to.have.status(412);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Nonexistent Owner Restaurant\",\n    \"address\": \"Some valid address\",\n    \"typeKitchen\": \"FAST_FOOD\",\n    \"openingHours\": \"08:00 - 22:00\",\n    \"ownerId\": \"00000000-0000-0000-0000-000000000000\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/restaurant",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "restaurant"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Restaurant - Owner not OWNER type (412)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 412', function () {",
+                      "    pm.response.to.have.status(412);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Has ownerId type error', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('ownerId');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "// NOTE: This test requires a user with a non-OWNER type to exist.",
+                      "// You need to manually set a valid non-owner userId before running."
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Non Owner Restaurant\",\n    \"address\": \"Some valid address\",\n    \"typeKitchen\": \"FAST_FOOD\",\n    \"openingHours\": \"08:00 - 22:00\",\n    \"ownerId\": \"{{userId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/restaurant",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "restaurant"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Restaurant - Not found (412)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 412', function () {",
+                      "    pm.response.to.have.status(412);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Has restaurant not found error', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('id');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Updated Restaurant\",\n    \"address\": \"Updated address here\",\n    \"typeKitchen\": \"FAST_FOOD\",\n    \"openingHours\": \"08:00 - 22:00\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/restaurant/00000000-0000-0000-0000-000000000000",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "restaurant", "00000000-0000-0000-0000-000000000000"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Restaurant - Empty body (400)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 400', function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/restaurant/{{restaurantId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "restaurant", "{{restaurantId}}"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "FindById Restaurant - Not found (412)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 412', function () {",
+                      "    pm.response.to.have.status(412);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/restaurant/00000000-0000-0000-0000-000000000000",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "restaurant", "00000000-0000-0000-0000-000000000000"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Restaurant - Wrong HTTP method (405)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 405', function () {",
+                      "    pm.response.to.have.status(405);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/restaurant",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "restaurant"]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Item",
+      "item": [
+        {
+          "name": "Valid Requests",
+          "item": [
+            {
+              "name": "Create Item",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 201', function () {",
+                      "    pm.response.to.have.status(201);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Response has success true', function () {",
+                      "    pm.expect(jsonData.success).to.eql(true);",
+                      "});",
+                      "if (jsonData.data && jsonData.data.id) {",
+                      "    pm.collectionVariables.set('itemId', jsonData.data.id);",
+                      "}"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Picanha Grelhada\",\n    \"description\": \"Picanha grelhada com arroz, feijao tropeiro e vinagrete\",\n    \"price\": 89.90,\n    \"availabilityToOrderLocal\": true,\n    \"photo\": \"picanha-grelhada.jpg\",\n    \"restaurantId\": \"{{restaurantId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/item",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "item"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Item - Without photo (optional)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 201', function () {",
+                      "    pm.response.to.have.status(201);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Suco de Laranja Natural\",\n    \"description\": \"Suco de laranja espremido na hora, 500ml\",\n    \"price\": 12.50,\n    \"availabilityToOrderLocal\": true,\n    \"restaurantId\": \"{{restaurantId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/item",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "item"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Item - Delivery only",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 201', function () {",
+                      "    pm.response.to.have.status(201);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Kit Feijoada Completa\",\n    \"description\": \"Feijoada completa para 2 pessoas com acompanhamentos\",\n    \"price\": 129.90,\n    \"availabilityToOrderLocal\": false,\n    \"photo\": \"kit-feijoada.jpg\",\n    \"restaurantId\": \"{{restaurantId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/item",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "item"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "FindAll Items",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 200', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Response has page content', function () {",
+                      "    pm.expect(jsonData.page).to.have.property('content');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/item?page=0&size=10",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "item"],
+                  "query": [
+                    { "key": "page", "value": "0" },
+                    { "key": "size", "value": "10" }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "FindAll Items - Filter by name",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 200', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/item?name=Picanha&page=0&size=10",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "item"],
+                  "query": [
+                    { "key": "name", "value": "Picanha" },
+                    { "key": "page", "value": "0" },
+                    { "key": "size", "value": "10" }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "FindById Item",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 200', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Response has success true', function () {",
+                      "    pm.expect(jsonData.success).to.eql(true);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/item/{{itemId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "item", "{{itemId}}"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Item",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 200', function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Response has success true', function () {",
+                      "    pm.expect(jsonData.success).to.eql(true);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Picanha Grelhada Premium\",\n    \"description\": \"Picanha angus grelhada com arroz, feijao tropeiro, farofa e vinagrete\",\n    \"price\": 109.90,\n    \"availabilityToOrderLocal\": true,\n    \"photo\": \"picanha-premium.jpg\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/item/{{itemId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "item", "{{itemId}}"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Item",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 202', function () {",
+                      "    pm.response.to.have.status(202);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/item/{{itemId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "item", "{{itemId}}"]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Invalid Requests",
+          "item": [
+            {
+              "name": "Create Item - Empty body (400)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 400', function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Has validation errors for required fields', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('name');",
+                      "    pm.expect(jsonData.errors).to.have.property('description');",
+                      "    pm.expect(jsonData.errors).to.have.property('price');",
+                      "    pm.expect(jsonData.errors).to.have.property('availabilityToOrderLocal');",
+                      "    pm.expect(jsonData.errors).to.have.property('restaurantId');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/item",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "item"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Item - Name too short (400)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 400', function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Has name size error', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('name');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"A\",\n    \"description\": \"Some description\",\n    \"price\": 10.00,\n    \"availabilityToOrderLocal\": true,\n    \"restaurantId\": \"{{restaurantId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/item",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "item"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Item - Negative price (400)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 400', function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Has price positive error', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('price');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Invalid Price Item\",\n    \"description\": \"Item with negative price\",\n    \"price\": -10.00,\n    \"availabilityToOrderLocal\": true,\n    \"restaurantId\": \"{{restaurantId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/item",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "item"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Item - Zero price (400)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 400', function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Has price positive error', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('price');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Zero Price Item\",\n    \"description\": \"Item with zero price\",\n    \"price\": 0,\n    \"availabilityToOrderLocal\": true,\n    \"restaurantId\": \"{{restaurantId}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/item",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "item"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Item - Restaurant not found (412)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 412', function () {",
+                      "    pm.response.to.have.status(412);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Has restaurant not found error', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('id');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Orphan Item\",\n    \"description\": \"Item with nonexistent restaurant\",\n    \"price\": 25.00,\n    \"availabilityToOrderLocal\": true,\n    \"restaurantId\": \"00000000-0000-0000-0000-000000000000\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/item",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "item"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Item - Not found (412)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 412', function () {",
+                      "    pm.response.to.have.status(412);",
+                      "});",
+                      "var jsonData = pm.response.json();",
+                      "pm.test('Has item not found error', function () {",
+                      "    pm.expect(jsonData.errors).to.have.property('id');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Updated Item\",\n    \"description\": \"Updated description\",\n    \"price\": 50.00,\n    \"availabilityToOrderLocal\": true,\n    \"photo\": \"updated.jpg\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/item/00000000-0000-0000-0000-000000000000",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "item", "00000000-0000-0000-0000-000000000000"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Item - Empty body (400)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 400', function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/item/{{itemId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "item", "{{itemId}}"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "FindById Item - Not found (412)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 412', function () {",
+                      "    pm.response.to.have.status(412);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/item/00000000-0000-0000-0000-000000000000",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "item", "00000000-0000-0000-0000-000000000000"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Item - Wrong HTTP method (405)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test('Status code is 405', function () {",
+                      "    pm.response.to.have.status(405);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/item",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["v1", "item"]
+                }
+              },
+              "response": []
+            }
+          ]
         }
       ]
     }
