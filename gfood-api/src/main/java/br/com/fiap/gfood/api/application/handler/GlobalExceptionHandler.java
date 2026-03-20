@@ -16,6 +16,7 @@ import br.com.fiap.gfood.api.domain.exception.AuthenticationFailedException;
 import br.com.fiap.gfood.api.domain.exception.EmailAlreadyUsedException;
 import br.com.fiap.gfood.api.domain.exception.PasswordConfirmationMismatchException;
 import br.com.fiap.gfood.api.domain.exception.PasswordMismatchException;
+import br.com.fiap.gfood.api.domain.exception.ItemNotFoundException;
 import br.com.fiap.gfood.api.domain.exception.OwnerUserRequiredException;
 import br.com.fiap.gfood.api.domain.exception.RestaurantNameAlreadyExistsException;
 import br.com.fiap.gfood.api.domain.exception.RestaurantNotFoundException;
@@ -162,6 +163,18 @@ public class GlobalExceptionHandler
 				"The restaurant name informed is already in use.",
 				"The name that was informed to register or update restaurant is already used. Try another one.",
 				errors), HttpStatus.PRECONDITION_FAILED);
+	}
+
+	@ExceptionHandler(exception = ItemNotFoundException.class)
+	public ResponseEntity<Object> itemNotFoundExceptionHandler(ItemNotFoundException exception,
+			HttpServletRequest request)
+	{
+		Map<String, String> errors = new HashMap<>();
+		errors.put("id", exception.getMessage());
+		return new ResponseEntity<>(new ProblemDetail(Boolean.FALSE, request.getRequestURL().toString(),
+				"The item requested was not found.",
+				"The item requested was not found. Try again.", errors),
+				HttpStatus.PRECONDITION_FAILED);
 	}
 
 	@ExceptionHandler(exception = OwnerUserRequiredException.class)
