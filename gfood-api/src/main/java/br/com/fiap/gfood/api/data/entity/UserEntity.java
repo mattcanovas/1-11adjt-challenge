@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
-import br.com.fiap.gfood.api.domain.enums.TypeCustomer;
+import br.com.fiap.gfood.api.domain.enums.TypeUser;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -23,14 +23,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "customer")
+@Table(name = "user")
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CustomerEntity
+public class UserEntity
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
@@ -56,7 +56,7 @@ public class CustomerEntity
 
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
-	private TypeCustomer type;
+	private TypeUser type;
 
 	@Column(nullable = false)
 	private String address;
@@ -89,7 +89,7 @@ public class CustomerEntity
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CustomerEntity other = (CustomerEntity) obj;
+		UserEntity other = (UserEntity) obj;
 		return Objects.equals(email, other.email) && Objects.equals(id, other.id)
 				&& Objects.equals(login, other.login);
 	}

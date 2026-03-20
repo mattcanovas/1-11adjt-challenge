@@ -6,14 +6,14 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import br.com.fiap.gfood.api.domain.gateway.CustomerGateway;
+import br.com.fiap.gfood.api.domain.gateway.UserGateway;
 
 @Service
-public class DeleteCustomerUseCase
+public class DeleteUserUseCase
 {
-	private final CustomerGateway gateway;
+	private final UserGateway gateway;
 
-	public DeleteCustomerUseCase(CustomerGateway gateway)
+	public DeleteUserUseCase(UserGateway gateway)
 	{
 		this.gateway = gateway;
 	}

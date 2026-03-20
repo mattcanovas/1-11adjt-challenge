@@ -4,16 +4,16 @@ import org.springframework.stereotype.Service;
 
 import br.com.fiap.gfood.api.application.dto.SignInRequest;
 import br.com.fiap.gfood.api.domain.exception.AuthenticationFailedException;
-import br.com.fiap.gfood.api.domain.gateway.CustomerGateway;
+import br.com.fiap.gfood.api.domain.gateway.UserGateway;
 
 @Service
 public class SignInUseCase
 {
 	private static final String INVALID_LOGIN_AND_PASSWORD = "Invalid login and password.";
 
-	private final CustomerGateway gateway;
+	private final UserGateway gateway;
 
-	public SignInUseCase(CustomerGateway gateway)
+	public SignInUseCase(UserGateway gateway)
 	{
 		this.gateway = gateway;
 	}

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import br.com.fiap.gfood.api.application.dto.ProblemDetail;
 import br.com.fiap.gfood.api.domain.exception.AuthenticationFailedException;
-import br.com.fiap.gfood.api.domain.exception.CustomerNotFoundException;
+import br.com.fiap.gfood.api.domain.exception.UserNotFoundException;
 import br.com.fiap.gfood.api.domain.exception.EmailAlreadyUsedException;
 import br.com.fiap.gfood.api.domain.exception.PasswordConfirmationMismatchException;
 import br.com.fiap.gfood.api.domain.exception.PasswordMismatchException;
@@ -58,19 +58,19 @@ public class GlobalExceptionHandler
 		errors.put("email", exception.getMessage());
 		return new ResponseEntity<>(new ProblemDetail(Boolean.FALSE, request.getRequestURL().toString(),
 				"The email informed is used in another account.",
-				"The email that was sended to register new customer is aleady used. Try another one.",
+				"The email that was sended to register new user is aleady used. Try another one.",
 				errors), HttpStatus.PRECONDITION_FAILED);
 	}
 
-	@ExceptionHandler(exception = CustomerNotFoundException.class)
-	public ResponseEntity<Object> customerNotFoundExceptionHandler(CustomerNotFoundException exception,
+	@ExceptionHandler(exception = UserNotFoundException.class)
+	public ResponseEntity<Object> userNotFoundExceptionHandler(UserNotFoundException exception,
 			HttpServletRequest request)
 	{
 		Map<String, String> errors = new HashMap<>();
 		errors.put("id", exception.getMessage());
 		return new ResponseEntity<>(new ProblemDetail(Boolean.FALSE, request.getRequestURL().toString(),
-				"The customer requested was not found.",
-				"The customer reuqested to updated was not found. Try again.", errors),
+				"The user requested was not found.",
+				"The user requested to updated was not found. Try again.", errors),
 				HttpStatus.PRECONDITION_FAILED);
 	}
 

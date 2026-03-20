@@ -2,30 +2,30 @@ package br.com.fiap.gfood.api.application.usecase;
 
 import org.springframework.stereotype.Service;
 
-import br.com.fiap.gfood.api.application.dto.CreateCustomerRequest;
+import br.com.fiap.gfood.api.application.dto.CreateUserRequest;
 import br.com.fiap.gfood.api.domain.exception.EmailAlreadyUsedException;
-import br.com.fiap.gfood.api.domain.gateway.CustomerGateway;
-import br.com.fiap.gfood.api.domain.model.Customer;
+import br.com.fiap.gfood.api.domain.gateway.UserGateway;
+import br.com.fiap.gfood.api.domain.model.User;
 
 @Service
-public class CreateCustomerUseCase
+public class CreateUserUseCase
 {
 	private static final String MESSAGE_ERROR_EMAIL_IS_ALREADY_USED = "Email is already used.";
 
-	private final CustomerGateway gateway;
+	private final UserGateway gateway;
 
-	public CreateCustomerUseCase(CustomerGateway gateway)
+	public CreateUserUseCase(UserGateway gateway)
 	{
 		this.gateway = gateway;
 	}
 
-	public Customer execute(CreateCustomerRequest request)
+	public User execute(CreateUserRequest request)
 	{
 		if (gateway.existsByEmail(request.email()))
 		{
 			throw new EmailAlreadyUsedException(MESSAGE_ERROR_EMAIL_IS_ALREADY_USED);
 		}
-		Customer customer = Customer.builder()
+		User user = User.builder()
 				.fullName(request.fullName())
 				.email(request.email())
 				.login(request.login())
@@ -33,6 +33,6 @@ public class CreateCustomerUseCase
 				.type(request.type())
 				.address(request.address())
 				.build();
-		return gateway.save(customer);
+		return gateway.save(user);
 	}
 }

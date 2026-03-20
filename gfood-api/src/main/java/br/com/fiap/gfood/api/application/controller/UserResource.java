@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.fiap.gfood.api.application.dto.ApiPageResponse;
 import br.com.fiap.gfood.api.application.dto.ApiResponse;
 import br.com.fiap.gfood.api.application.dto.ChangePasswordRequest;
-import br.com.fiap.gfood.api.application.dto.CreateCustomerRequest;
+import br.com.fiap.gfood.api.application.dto.CreateUserRequest;
 import br.com.fiap.gfood.api.application.dto.ProblemDetail;
 import br.com.fiap.gfood.api.application.dto.SignInRequest;
-import br.com.fiap.gfood.api.application.dto.UpdateCustomerRequest;
+import br.com.fiap.gfood.api.application.dto.UpdateUserRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -32,13 +32,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.NotNull;
 
 @RestController
-@RequestMapping(value = "/v1/customer")
-@Tag(name = "Customer", description = "Customer's Controller")
-public interface CustomerResource
+@RequestMapping(value = "/v1/user")
+@Tag(name = "User", description = "User's Controller")
+public interface UserResource
 {
 	@Operation(
-		summary = "Find all customers",
-		description = "Retrieves a paginated list of customers, optionally filtering by first name."
+		summary = "Find all users",
+		description = "Retrieves a paginated list of users, optionally filtering by first name."
 	)
 	@GetMapping(produces = { "application/json", "application/problem+json" })
 	@ApiResponses({
@@ -97,7 +97,7 @@ public interface CustomerResource
 		)
 	})
 	ResponseEntity<ApiPageResponse> findAllFiltering(
-			@Parameter(description = "Filter customers by first name (partial match)", example = "Matheus")
+			@Parameter(description = "Filter users by first name (partial match)", example = "Matheus")
 			@RequestParam(required = false) String firstName,
 			@Parameter(description = "Page number (zero-based)", example = "0")
 			@RequestParam(defaultValue = "0") Integer page,
@@ -105,14 +105,14 @@ public interface CustomerResource
 			@RequestParam(defaultValue = "10") Integer size);
 
 	@Operation(
-		summary = "Create a new customer",
-		description = "Registers a new customer in the system. The email must be unique."
+		summary = "Create a new user",
+		description = "Registers a new user in the system. The email must be unique."
 	)
 	@PostMapping(produces = { "application/json", "application/problem+json" })
 	@ApiResponses({
 		@io.swagger.v3.oas.annotations.responses.ApiResponse(
 			responseCode = "201",
-			description = "Customer created successfully",
+			description = "User created successfully",
 			content = @Content(
 				mediaType = "application/json",
 				schema = @Schema(implementation = ApiResponse.class),
@@ -143,9 +143,9 @@ public interface CustomerResource
 				examples = @ExampleObject(value = """
 					{
 					    "success": false,
-					    "type": "http://localhost:8080/v1/customer",
+					    "type": "http://localhost:8080/v1/user",
 					    "title": "The email informed is used in another account.",
-					    "details": "The email that was sended to register new customer is aleady used. Try another one.",
+					    "details": "The email that was sended to register new user is aleady used. Try another one.",
 					    "errors": {
 					        "email": "Email is already used."
 					    }
@@ -163,7 +163,7 @@ public interface CustomerResource
 				examples = @ExampleObject(value = """
 					{
 					    "success": false,
-					    "type": "http://localhost:8080/v1/customer",
+					    "type": "http://localhost:8080/v1/user",
 					    "title": "Your request parameters didn't validate",
 					    "details": "The parameters that was send in request's body is not valid according with business rules.",
 					    "errors": {
@@ -182,20 +182,20 @@ public interface CustomerResource
 	})
 	ResponseEntity<ApiResponse> create(
 			@io.swagger.v3.oas.annotations.parameters.RequestBody(
-				description = "Customer data to create",
+				description = "User data to create",
 				required = true
 			)
-			@RequestBody @Validated CreateCustomerRequest payload);
+			@RequestBody @Validated CreateUserRequest payload);
 
 	@Operation(
-		summary = "Update an existing customer",
-		description = "Updates the data of an existing customer identified by UUID."
+		summary = "Update an existing user",
+		description = "Updates the data of an existing user identified by UUID."
 	)
 	@PutMapping(value = "/{id}", produces = { "application/json", "application/problem+json" })
 	@ApiResponses({
 		@io.swagger.v3.oas.annotations.responses.ApiResponse(
 			responseCode = "200",
-			description = "Customer updated successfully",
+			description = "User updated successfully",
 			content = @Content(
 				mediaType = "application/json",
 				schema = @Schema(implementation = ApiResponse.class),
@@ -226,9 +226,9 @@ public interface CustomerResource
 				examples = @ExampleObject(value = """
 					{
 					    "success": false,
-					    "type": "http://localhost:8080/v1/customer",
+					    "type": "http://localhost:8080/v1/user",
 					    "title": "The email informed is used in another account.",
-					    "details": "The email that was sended to register new customer is aleady used. Try another one.",
+					    "details": "The email that was sended to register new user is aleady used. Try another one.",
 					    "errors": {
 					        "email": "Email is already used."
 					    }
@@ -246,7 +246,7 @@ public interface CustomerResource
 				examples = @ExampleObject(value = """
 					{
 					    "success": false,
-					    "type": "http://localhost:8080/v1/customer",
+					    "type": "http://localhost:8080/v1/user",
 					    "title": "Your request parameters didn't validate",
 					    "details": "The parameters that was send in request's body is not valid according with business rules.",
 					    "errors": {
@@ -264,17 +264,17 @@ public interface CustomerResource
 		)
 	})
 	ResponseEntity<ApiResponse> update(
-			@Parameter(description = "UUID of the customer to update", required = true, example = "809ada66-68cf-440b-87ee-88fb17730c84")
-			@PathVariable @NotNull(message = "The id of customer must be informed") UUID id,
+			@Parameter(description = "UUID of the user to update", required = true, example = "809ada66-68cf-440b-87ee-88fb17730c84")
+			@PathVariable @NotNull(message = "The id of user must be informed") UUID id,
 			@io.swagger.v3.oas.annotations.parameters.RequestBody(
-				description = "Customer data to update",
+				description = "User data to update",
 				required = true
 			)
-			@RequestBody @Validated UpdateCustomerRequest payload);
+			@RequestBody @Validated UpdateUserRequest payload);
 
 	@Operation(
-		summary = "Delete a customer",
-		description = "Asynchronously deletes a customer identified by UUID. Returns 202 Accepted."
+		summary = "Delete a user",
+		description = "Asynchronously deletes a user identified by UUID. Returns 202 Accepted."
 	)
 	@DeleteMapping(value = "/{id}", produces = { "application/json", "application/problem+json" })
 	@ApiResponses({
@@ -284,12 +284,12 @@ public interface CustomerResource
 		)
 	})
 	ResponseEntity<Object> delete(
-			@Parameter(description = "UUID of the customer to delete", required = true, example = "809ada66-68cf-440b-87ee-88fb17730c84")
-			@PathVariable @NotNull(message = "The id of customer must be informed") UUID id);
+			@Parameter(description = "UUID of the user to delete", required = true, example = "809ada66-68cf-440b-87ee-88fb17730c84")
+			@PathVariable @NotNull(message = "The id of user must be informed") UUID id);
 
 	@Operation(
-		summary = "Change customer password",
-		description = "Changes the password of an existing customer. Requires the old password for validation and the new password with confirmation."
+		summary = "Change user password",
+		description = "Changes the password of an existing user. Requires the old password for validation and the new password with confirmation."
 	)
 	@PatchMapping(value = "/change-password/{id}", produces = { "application/json", "application/problem+json" })
 	@ApiResponses({
@@ -326,7 +326,7 @@ public interface CustomerResource
 				examples = @ExampleObject(value = """
 					{
 					    "success": false,
-					    "type": "http://localhost:8080/v1/customer/change-password/a327963f-545e-4414-896d-a2ab832dd147",
+					    "type": "http://localhost:8080/v1/user/change-password/a327963f-545e-4414-896d-a2ab832dd147",
 					    "title": "Your request parameters didn't validate",
 					    "details": "The parameters that was send in request's body is not valid according with business rules.",
 					    "errors": {
@@ -346,7 +346,7 @@ public interface CustomerResource
 				examples = @ExampleObject(value = """
 					{
 					    "success": false,
-					    "type": "http://localhost:8080/v1/customer/change-password/a327963f-545e-4414-896d-a2ab832dd147",
+					    "type": "http://localhost:8080/v1/user/change-password/a327963f-545e-4414-896d-a2ab832dd147",
 					    "title": "The old password informed mismatch",
 					    "details": "The old password informed on the body requisition mismatched with the real password.",
 					    "errors": {
@@ -359,8 +359,8 @@ public interface CustomerResource
 		)
 	})
 	ResponseEntity<Object> changePassword(
-			@Parameter(description = "UUID of the customer", required = true, example = "a327963f-545e-4414-896d-a2ab832dd147")
-			@PathVariable @NotNull(message = "The id of customer must be informed") UUID id,
+			@Parameter(description = "UUID of the user", required = true, example = "a327963f-545e-4414-896d-a2ab832dd147")
+			@PathVariable @NotNull(message = "The id of user must be informed") UUID id,
 			@io.swagger.v3.oas.annotations.parameters.RequestBody(
 				description = "Old password, new password and confirmation",
 				required = true
@@ -369,7 +369,7 @@ public interface CustomerResource
 
 	@Operation(
 		summary = "Sign in",
-		description = "Authenticates a customer using login and password credentials."
+		description = "Authenticates a user using login and password credentials."
 	)
 	@PostMapping(value = "/signin", produces = { "application/json", "application/problem+json" })
 	@ApiResponses({
@@ -394,7 +394,7 @@ public interface CustomerResource
 				examples = @ExampleObject(value = """
 					{
 					    "success": false,
-					    "type": "http://localhost:8080/v1/customer/signin",
+					    "type": "http://localhost:8080/v1/user/signin",
 					    "title": "Invalid login and password.",
 					    "details": "The login and password informed in the request body are invalid. Try again",
 					    "errors": {

@@ -1,6 +1,6 @@
 package br.com.fiap.gfood.api.domain.enums;
 
-public enum TypeCustomer
+public enum TypeUser
 {
 	DEFAULT, OWNER
 }
