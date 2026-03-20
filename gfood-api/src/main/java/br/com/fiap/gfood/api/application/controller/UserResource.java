@@ -58,7 +58,7 @@ public interface UserResource
 					                "fullName": "Matheus Canovas Almeida Santos",
 					                "login": "matheus.canovas",
 					                "email": "matheuscanovas9@gmail.com",
-					                "type": "OWNER",
+					                "typeUser": { "id": "b1234567-1234-1234-1234-123456789abc", "name": "OWNER" },
 					                "createdAt": "2026-01-21T17:28:26.761502",
 					                "updatedAt": "2026-01-21T17:28:26.761502",
 					                "address": "Rua Basilio da Cunha 889, Apto. 122"

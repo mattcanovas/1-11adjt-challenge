@@ -13,10 +13,15 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import br.com.fiap.gfood.api.application.dto.ProblemDetail;
 import br.com.fiap.gfood.api.domain.exception.AuthenticationFailedException;
-import br.com.fiap.gfood.api.domain.exception.UserNotFoundException;
 import br.com.fiap.gfood.api.domain.exception.EmailAlreadyUsedException;
 import br.com.fiap.gfood.api.domain.exception.PasswordConfirmationMismatchException;
 import br.com.fiap.gfood.api.domain.exception.PasswordMismatchException;
+import br.com.fiap.gfood.api.domain.exception.OwnerUserRequiredException;
+import br.com.fiap.gfood.api.domain.exception.RestaurantNameAlreadyExistsException;
+import br.com.fiap.gfood.api.domain.exception.RestaurantNotFoundException;
+import br.com.fiap.gfood.api.domain.exception.TypeUserNameAlreadyExistsException;
+import br.com.fiap.gfood.api.domain.exception.TypeUserNotFoundException;
+import br.com.fiap.gfood.api.domain.exception.UserNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
@@ -74,6 +79,30 @@ public class GlobalExceptionHandler
 				HttpStatus.PRECONDITION_FAILED);
 	}
 
+	@ExceptionHandler(exception = TypeUserNotFoundException.class)
+	public ResponseEntity<Object> typeUserNotFoundExceptionHandler(TypeUserNotFoundException exception,
+			HttpServletRequest request)
+	{
+		Map<String, String> errors = new HashMap<>();
+		errors.put("id", exception.getMessage());
+		return new ResponseEntity<>(new ProblemDetail(Boolean.FALSE, request.getRequestURL().toString(),
+				"The type user requested was not found.",
+				"The type user requested was not found. Try again.", errors),
+				HttpStatus.PRECONDITION_FAILED);
+	}
+
+	@ExceptionHandler(exception = TypeUserNameAlreadyExistsException.class)
+	public ResponseEntity<Object> typeUserNameAlreadyExistsExceptionHandler(TypeUserNameAlreadyExistsException exception,
+			HttpServletRequest request)
+	{
+		Map<String, String> errors = new HashMap<>();
+		errors.put("name", exception.getMessage());
+		return new ResponseEntity<>(new ProblemDetail(Boolean.FALSE, request.getRequestURL().toString(),
+				"The type user name informed is already in use.",
+				"The name that was informed to register or update type user is already used. Try another one.",
+				errors), HttpStatus.PRECONDITION_FAILED);
+	}
+
 	@ExceptionHandler(exception = PasswordMismatchException.class)
 	public ResponseEntity<Object> passwordMismatchExceptionHandler(PasswordMismatchException exception,
 			HttpServletRequest request)
@@ -109,5 +138,41 @@ public class GlobalExceptionHandler
 				exception.getMessage(),
 				"The login and password informed in the request body are invalid. Try again", errors),
 				HttpStatus.PRECONDITION_FAILED);
+	}
+
+	@ExceptionHandler(exception = RestaurantNotFoundException.class)
+	public ResponseEntity<Object> restaurantNotFoundExceptionHandler(RestaurantNotFoundException exception,
+			HttpServletRequest request)
+	{
+		Map<String, String> errors = new HashMap<>();
+		errors.put("id", exception.getMessage());
+		return new ResponseEntity<>(new ProblemDetail(Boolean.FALSE, request.getRequestURL().toString(),
+				"The restaurant requested was not found.",
+				"The restaurant requested was not found. Try again.", errors),
+				HttpStatus.PRECONDITION_FAILED);
+	}
+
+	@ExceptionHandler(exception = RestaurantNameAlreadyExistsException.class)
+	public ResponseEntity<Object> restaurantNameAlreadyExistsExceptionHandler(RestaurantNameAlreadyExistsException exception,
+			HttpServletRequest request)
+	{
+		Map<String, String> errors = new HashMap<>();
+		errors.put("name", exception.getMessage());
+		return new ResponseEntity<>(new ProblemDetail(Boolean.FALSE, request.getRequestURL().toString(),
+				"The restaurant name informed is already in use.",
+				"The name that was informed to register or update restaurant is already used. Try another one.",
+				errors), HttpStatus.PRECONDITION_FAILED);
+	}
+
+	@ExceptionHandler(exception = OwnerUserRequiredException.class)
+	public ResponseEntity<Object> ownerUserRequiredExceptionHandler(OwnerUserRequiredException exception,
+			HttpServletRequest request)
+	{
+		Map<String, String> errors = new HashMap<>();
+		errors.put("ownerId", exception.getMessage());
+		return new ResponseEntity<>(new ProblemDetail(Boolean.FALSE, request.getRequestURL().toString(),
+				"The user must have the type OWNER.",
+				"The user informed as owner must have the type OWNER to create a restaurant.",
+				errors), HttpStatus.PRECONDITION_FAILED);
 	}
 }

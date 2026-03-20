@@ -7,9 +7,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import br.com.fiap.gfood.api.data.entity.TypeUserEntity;
 import br.com.fiap.gfood.api.data.entity.UserEntity;
 import br.com.fiap.gfood.api.data.repository.UserRepository;
 import br.com.fiap.gfood.api.domain.gateway.UserGateway;
+import br.com.fiap.gfood.api.domain.model.TypeUser;
 import br.com.fiap.gfood.api.domain.model.User;
 
 @Component
@@ -67,13 +69,24 @@ public class UserGatewayImpl implements UserGateway
 
 	private User toDomain(UserEntity entity)
 	{
+		TypeUser typeUser = null;
+		if (entity.getTypeUser() != null)
+		{
+			typeUser = TypeUser.builder()
+					.id(entity.getTypeUser().getId())
+					.name(entity.getTypeUser().getName())
+					.description(entity.getTypeUser().getDescription())
+					.createdAt(entity.getTypeUser().getCreatedAt())
+					.updatedAt(entity.getTypeUser().getUpdatedAt())
+					.build();
+		}
 		return User.builder()
 				.id(entity.getId())
 				.fullName(entity.getFullName())
 				.login(entity.getLogin())
 				.password(entity.getPassword())
 				.email(entity.getEmail())
-				.type(entity.getType())
+				.typeUser(typeUser)
 				.createdAt(entity.getCreatedAt())
 				.updatedAt(entity.getUpdatedAt())
 				.address(entity.getAddress())
@@ -82,13 +95,24 @@ public class UserGatewayImpl implements UserGateway
 
 	private UserEntity toEntity(User user)
 	{
+		TypeUserEntity typeUserEntity = null;
+		if (user.getTypeUser() != null)
+		{
+			typeUserEntity = TypeUserEntity.builder()
+					.id(user.getTypeUser().getId())
+					.name(user.getTypeUser().getName())
+					.description(user.getTypeUser().getDescription())
+					.createdAt(user.getTypeUser().getCreatedAt())
+					.updatedAt(user.getTypeUser().getUpdatedAt())
+					.build();
+		}
 		return UserEntity.builder()
 				.id(user.getId())
 				.fullName(user.getFullName())
 				.login(user.getLogin())
 				.password(user.getPassword())
 				.email(user.getEmail())
-				.type(user.getType())
+				.typeUser(typeUserEntity)
 				.createdAt(user.getCreatedAt())
 				.updatedAt(user.getUpdatedAt())
 				.address(user.getAddress())

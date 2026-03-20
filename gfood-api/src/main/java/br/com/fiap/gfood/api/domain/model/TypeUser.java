@@ -14,15 +14,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User
+public class TypeUser
 {
 	private UUID id;
-	private String fullName;
-	private String login;
-	private String password;
-	private String email;
-	private TypeUser typeUser;
+	private String name;
+	private String description;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
-	private String address;
 }
